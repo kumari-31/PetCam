@@ -160,7 +160,7 @@ app.get('/test', (req, res) => {
 });
 
 // --- Start the Server ---
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8443;
 const HOST = '0.0.0.0';
 
 server.listen(PORT, HOST, () => {

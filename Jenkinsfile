@@ -60,7 +60,7 @@ pipeline {
                             cat files/deploy.yaml
                             git add files/deploy.yaml
                             git commit -m 'Updated the deploy yaml | Pipeline'
-                            git remote set-url origin https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/kumari-31/cicd-2.git
+                            git remote set-url origin https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/kumari-31/petcam1.git
                             git push origin HEAD:main
                         '''                        
                     }

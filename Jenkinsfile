@@ -51,7 +51,7 @@ pipeline {
         stage('Update K8S manifest & push to Repo(petcam1)'){
             steps {
                 script{
-                    withCredentials([usernamePassword(credentialsId: '2a4cd6cb-342a-4322-a9d9-b3b4042a0048', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    withCredentials([usernamePassword(credentialsId: 'petcam', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         sh '''
                             git config user.email "skumari@cdac.in"
                             git config user.name "kumari-31"

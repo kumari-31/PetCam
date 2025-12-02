@@ -12,7 +12,7 @@ pipeline {
         stage('Checkout'){
            steps {
                 git credentialsId: '2a4cd6cb-342a-4322-a9d9-b3b4042a0048',
-                url: 'https://github.com/kumari-31/cicd-1.git',
+                url: 'https://github.com/kumari-31/PetCam.git',
                 branch: 'main'
            }
         }
@@ -22,7 +22,7 @@ pipeline {
                 script{
                     sh '''
                         echo 'Buid Docker Image'
-                        docker build -t kumari3123/cicd-1:${BUILD_NUMBER} .
+                        docker build -t kumari3123/petcam:${BUILD_NUMBER} .
                     '''
                 }
             }
@@ -34,7 +34,7 @@ pipeline {
                     sh '''
                         echo 'Push to Repo'
                         echo "$REGISTRY_CREDENTIALS_PSW" | docker login -u "$REGISTRY_CREDENTIALS_USR" --password-stdin
-                        docker push kumari3123/cicd-1:${BUILD_NUMBER}
+                        docker push kumari3123/petcam:${BUILD_NUMBER}
                     '''
                 }
             }
@@ -42,8 +42,8 @@ pipeline {
         
         stage('Checkout K8S manifest SCM(cicd-2)'){
             steps {
-                git credentialsId: '9cdf6c50-bb39-4fe9-96bc-89dfddee2ff4', 
-                    url: 'https://github.com/kumari-31/cicd-2.git',
+                git credentialsId: '2a4cd6cb-342a-4322-a9d9-b3b4042a0048', 
+                    url: 'https://github.com/kumari-31/petcam1.git',
                     branch: 'main'
             }
         }
@@ -51,12 +51,12 @@ pipeline {
         stage('Update K8S manifest & push to Repo(cicd-2)'){
             steps {
                 script{
-                    withCredentials([usernamePassword(credentialsId: '9cdf6c50-bb39-4fe9-96bc-89dfddee2ff4', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    withCredentials([usernamePassword(credentialsId: '2a4cd6cb-342a-4322-a9d9-b3b4042a0048', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         sh '''
                             git config user.email "skumari@cdac.in"
                             git config user.name "kumari-31"
                             cat files/deploy.yaml
-                            sed -i "s/\\(kumari3123\\/cicd-1:\\)[0-9]\\+/\\1${BUILD_NUMBER}/g" files/deploy.yaml
+                            sed -i "s/\\(kumari3123\\/petcam:\\)[0-9]\\+/\\1${BUILD_NUMBER}/g" files/deploy.yaml
                             cat files/deploy.yaml
                             git add files/deploy.yaml
                             git commit -m 'Updated the deploy yaml | Pipeline'

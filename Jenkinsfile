@@ -40,7 +40,7 @@ pipeline {
             }
         }
         
-        stage('Checkout K8S manifest SCM(cicd-2)'){
+        stage('Checkout K8S manifest SCM(petcam1)'){
             steps {
                 git credentialsId: '2a4cd6cb-342a-4322-a9d9-b3b4042a0048', 
                     url: 'https://github.com/kumari-31/petcam1.git',
@@ -48,7 +48,7 @@ pipeline {
             }
         }
         
-        stage('Update K8S manifest & push to Repo(cicd-2)'){
+        stage('Update K8S manifest & push to Repo(petcam1)'){
             steps {
                 script{
                     withCredentials([usernamePassword(credentialsId: '2a4cd6cb-342a-4322-a9d9-b3b4042a0048', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
